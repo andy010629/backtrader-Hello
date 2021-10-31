@@ -18,9 +18,16 @@ dataframe = pd.read_csv('2021TXF.csv')
 dataframe['datetime'] = pd.to_datetime(dataframe['Date']+' '+dataframe['Time'])
 dataframe.set_index('datetime',inplace=True)
 dataframe['openintrest'] = 0
+<<<<<<< HEAD
 TXF_his = bt.feeds.PandasData(dataname=dataframe,
         fromdate= datetime.datetime(2021,1,1),
         todate = datetime.datetime(2021,1,31),
+=======
+TXF_his = bt.feeds.PandasData(
+        dataname = dataframe,
+        fromdate = datetime.datetime(2021,1,6),
+        todate = datetime.datetime(2021,1,7),
+>>>>>>> 0eb6225fb3b0675c40235d4aeace16700e2ec8c6
         timeframe=bt.TimeFrame.Minutes
     )
 
@@ -49,4 +56,8 @@ cerebro.run(oldbuysell=True)
 
 # plot
 # cerebro.plot(volume=False)
+<<<<<<< HEAD
 cerebro.plot(style='candlestick', barup='green', bardown='red', volume=False)
+=======
+cerebro.plot(style='candlestick', barup='green', bardown='red')
+>>>>>>> 0eb6225fb3b0675c40235d4aeace16700e2ec8c6

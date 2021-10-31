@@ -18,10 +18,19 @@ class test(bt.Strategy):
 
     def next(self):
 
-        if not self.position and self.buycon[0] == 1:
-            self.order = self.buy()
-            # print(self.data.datetime.time())
-
+        if not self.position:
+            curPrice = self.data.close[0]
+            midPrice = (self.up_down.up[0]+self.up_down.down[0])/2
+            if self.buycon[0] == 1:
+                # self.order = self.buy()
+                self.order =  self.buy_bracket(limitprice=curPrice*2-midPrice, price=curPrice, stopprice=midPrice)
+                # print(self.data.datetime.time())
+            if self.sellcon[0] == 1:
+                # self.order = self.sell()
+                self.order = self.sell_bracket(limitprice=curPrice*2-midPrice, price=curPrice, stopprice=midPrice)
+            
+        # if not self.position and self.sellcon[0] == 1:
+        #     self.order = self.sell()
         # if self.position == 1 and self.close
 
         # if self.sellcon[0]:
