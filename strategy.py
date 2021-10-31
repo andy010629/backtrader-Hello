@@ -27,5 +27,8 @@ class test(bt.Strategy):
         # if self.sellcon[0]:
         #     self.order = self.sell()
 
+        # self.up_down.up[0]
+
+
         if self.data.datetime.time() == datetime.time(13, 30):
             self.order = self.close()

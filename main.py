@@ -1,4 +1,5 @@
 '''
+https://www.backtrader.com/docu/
 buy_bracket -> 打三單
 '''
 
