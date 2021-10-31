@@ -18,9 +18,10 @@ dataframe = pd.read_csv('2021TXF.csv')
 dataframe['datetime'] = pd.to_datetime(dataframe['Date']+' '+dataframe['Time'])
 dataframe.set_index('datetime',inplace=True)
 dataframe['openintrest'] = 0
-TXF_his = bt.feeds.PandasData(dataname=dataframe,
-        fromdate= datetime.datetime(2021,1,4),
-        todate = datetime.datetime(2021,1,5),
+TXF_his = bt.feeds.PandasData(
+        dataname = dataframe,
+        fromdate = datetime.datetime(2021,1,6),
+        todate = datetime.datetime(2021,1,7),
         timeframe=bt.TimeFrame.Minutes
     )
 
