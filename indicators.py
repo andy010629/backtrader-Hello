@@ -4,6 +4,7 @@ import datetime
 class ud(bt.Indicator):
     lines = ('up','down')
 
+
     def __init__(self):
         self.addminperiod(1)
         self.plotinfo.plotmaster = self.data

@@ -1,14 +1,10 @@
-'''
-https://www.backtrader.com/docu/
-buy_bracket -> 打三單
-'''
-
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 import backtrader as bt
 import pandas as pd
 import datetime
-from strategy import test
+from strategy import ORB
+import Observer
 
 # create objectG
 cerebro = bt.Cerebro(stdstats=False)
@@ -38,16 +34,31 @@ cerebro.broker.setcash(100000)
 # cerebro.resampledata(TXF_his,  timeframe=bt.TimeFrame.Days)
 
 # add strategy
-cerebro.addstrategy(test)
+cerebro.addstrategy(ORB)
+
+
 
 # add observer
-cerebro.addobserver(bt.observers.Value)
+cerebro.addobserver(Observer.Value)
 cerebro.addobserver(bt.observers.Trades)
 cerebro.addobserver(bt.observers.BuySell)
+cerebro.addobserver(Observer.Broker)
 
-# run app
-cerebro.run(oldbuysell=True)
+
+
+
+# add analyzers
+cerebro.addanalyzer(bt.analyzers.SharpeRatio, _name = 'SR', timeframe=bt.TimeFrame.Minutes)
+
+# add writer
+cerebro.addwriter(bt.WriterFile, csv=True,out='result.csv')
+
+
+# run backtrader
+result = cerebro.run(oldbuysell=True)
 
 # plot
-# cerebro.plot(volume=False)
-cerebro.plot(style='candlestick', barup='green', bardown='red', volume=False)
+# cerebro.plot(style='candlestick', barup='green', bardown='red', volume=False)
+cerebro.plot(volume=False)
+
+
