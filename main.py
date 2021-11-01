@@ -3,7 +3,7 @@ from __future__ import (absolute_import, division, print_function,
 import backtrader as bt
 import pandas as pd
 import datetime
-from strategy import ORB
+from Strategys import ChinaORB
 import Observer
 
 # create objectG
@@ -15,14 +15,18 @@ dataframe['datetime'] = pd.to_datetime(dataframe['Date']+' '+dataframe['Time'])
 dataframe.set_index('datetime',inplace=True)
 dataframe['openintrest'] = 0
 
+
+fromdate = datetime.datetime(2021,1,1)
+todate = datetime.datetime(2021,1,31)
+
 TXF_his = bt.feeds.PandasData(dataname=dataframe,
-        fromdate= datetime.datetime(2021,1,1),
-        todate = datetime.datetime(2021,1,31),
+        fromdate= fromdate,
+        todate = todate,
         timeframe=bt.TimeFrame.Minutes
     )
 
 
-cerebro.adddata(TXF_his)
+# cerebro.adddata(TXF_his)
 
 # # TXF_his.volume.plot = False
 # cerebro.datas[0].volume.plot = False
@@ -30,10 +34,11 @@ cerebro.adddata(TXF_his)
 cerebro.broker.setcash(100000)
 
 # # merge minK to HourK (會自動 feed 進 cerebro)
-# cerebro.resampledata(TXF_his,  timeframe=bt.TimeFrame.Minutes, compression=60)
+cerebro.resampledata(TXF_his,  timeframe=bt.TimeFrame.Minutes, compression=5)
 # cerebro.resampledata(TXF_his,  timeframe=bt.TimeFrame.Days)
+
 # add strategy
-cerebro.addstrategy(ORB)
+cerebro.addstrategy(ChinaORB)
 
 
 
@@ -47,7 +52,7 @@ cerebro.addobserver(Observer.Broker)
 
 
 # add analyzers
-cerebro.addanalyzer(bt.analyzers.SharpeRatio, _name = 'SR', timeframe=bt.TimeFrame.Minutes)
+cerebro.addanalyzer(bt.analyzers.SharpeRatio, _name = 'SR', timeframe=bt.TimeFrame.Days)
 
 # add writer
 cerebro.addwriter(bt.WriterFile, csv=True,out='result.csv')
@@ -57,7 +62,7 @@ cerebro.addwriter(bt.WriterFile, csv=True,out='result.csv')
 result = cerebro.run(oldbuysell=True)
 
 # plot
-# cerebro.plot(style='candlestick', barup='green', bardown='red', volume=False)
-cerebro.plot(volume=False)
+cerebro.plot(style='candlestick', barup='green', bardown='red', volume=False)
+# cerebro.plot(volume=False)
 
 
