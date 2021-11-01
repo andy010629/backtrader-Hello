@@ -23,11 +23,11 @@ class test(bt.Strategy):
             midPrice = (self.up_down.up[0]+self.up_down.down[0])/2
             if self.buycon[0] == 1:
                 # self.order = self.buy()
-                self.order =  self.buy_bracket(limitprice=curPrice*2-midPrice, price=curPrice, stopprice=midPrice)
+                self.order =  self.buy_bracket(limitprice=curPrice*3-midPrice*2, price=curPrice, stopprice=midPrice)
                 # print(self.data.datetime.time())
             if self.sellcon[0] == 1:
                 # self.order = self.sell()
-                self.order = self.sell_bracket(limitprice=curPrice*2-midPrice, price=curPrice, stopprice=midPrice)
+                self.order = self.sell_bracket(limitprice=curPrice*3-midPrice*2, price=curPrice, stopprice=midPrice)
             
         # if not self.position and self.sellcon[0] == 1:
         #     self.order = self.sell()
@@ -35,7 +35,7 @@ class test(bt.Strategy):
 
         # if self.sellcon[0]:
         #     self.order = self.sell()
-
+        
         # self.up_down.up[0]
 
 
