@@ -19,7 +19,7 @@ class ORB(bt.Strategy):
 
     def next(self):
 
-        if not self.position:
+        if self.data.datetime.time() > datetime.time(9, 15) and self.data.datetime.time() < datetime.time(13, 30) and not self.position:
             curPrice = self.data.close[0]
             midPrice = (self.up_down.up[0]+self.up_down.down[0])/2
             if self.buycon[0] == 1:
@@ -29,5 +29,8 @@ class ORB(bt.Strategy):
    
 
 
-        if self.data.datetime.time() == datetime.time(13, 30):
+        if  self.position and self.data.datetime.time() == datetime.time(13, 30):
+            for o in self.order: 
+                self.cancel(o)
             self.order = self.close()
+    

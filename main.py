@@ -32,7 +32,6 @@ cerebro.broker.setcash(100000)
 # # merge minK to HourK (會自動 feed 進 cerebro)
 # cerebro.resampledata(TXF_his,  timeframe=bt.TimeFrame.Minutes, compression=60)
 # cerebro.resampledata(TXF_his,  timeframe=bt.TimeFrame.Days)
-
 # add strategy
 cerebro.addstrategy(ORB)
 
